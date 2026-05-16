@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #d8e3f2;
+  background: #070b12;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    linear-gradient(180deg, rgba(14, 21, 34, 0.88), rgba(7, 11, 18, 1)),
+    #070b12;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+@layer components {
+  .panel {
+    @apply rounded-md border border-slate-800/80 bg-surface-900/90 shadow-panel;
+  }
+
+  .muted-label {
+    @apply text-xs font-medium uppercase tracking-wide text-slate-500;
+  }
+
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-sky-400/40 focus:ring-offset-0;
+  }
+
+  .btn {
+    @apply focus-ring inline-flex min-h-9 items-center justify-center gap-2 rounded-md px-3 py-2 text-sm font-medium leading-none transition whitespace-nowrap disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply bg-sky-400 text-surface-950 hover:bg-sky-300;
+  }
+
+  .btn-secondary {
+    @apply border border-slate-700 text-slate-300 hover:bg-surface-800 hover:text-white;
+  }
+
+  .btn-success {
+    @apply border border-emerald-400/30 bg-emerald-400/10 text-emerald-200 hover:bg-emerald-400/20;
+  }
+
+  .btn-danger {
+    @apply border border-rose-400/30 bg-rose-400/10 text-rose-200 hover:bg-rose-400/20;
+  }
+
+  .text-wrap-safe {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+}

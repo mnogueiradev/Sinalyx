@@ -1,0 +1,57 @@
+databases:
+  - name: sinalyx-db
+    databaseName: sinalyx
+    user: sinalyx
+    plan: free
+
+services:
+  # ── API (Backend FastAPI) ──────────────────────────────────────────────────
+  - type: web
+    name: sinalyx-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: SINALYX_ENV
+        value: production
+      - key: DATABASE_ENABLED
+        value: "true"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: sinalyx-db
+          property: connectionString
+      - key: POSTGRES_DB
+        value: sinalyx
+      - key: POSTGRES_USER
+        value: sinalyx
+      - key: POSTGRES_PASSWORD
+        fromDatabase:
+          name: sinalyx-db
+          property: password
+      - key: SINALYX_AUTH_SECRET_KEY
+        generateValue: true
+      - key: SINALYX_ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "720"
+      - key: SINALYX_ADMIN_NAME
+        value: Administrador Sinalyx
+      - key: SINALYX_ADMIN_EMAIL
+        value: admin@sinalyx.local
+      - key: SINALYX_ADMIN_PASSWORD
+        sync: false   # Defina manualmente no painel do Render
+      - key: SINALYX_SUPER_ADMIN_EMAIL
+        value: admin@sinalyx.local
+      - key: SINALYX_CORS_ORIGINS
+        sync: false   # Preencha com a URL do frontend após o deploy
+
+  # ── Frontend (Vue 3 / Vite - Site Estático) ────────────────────────────────
+  - type: web
+    name: sinalyx-frontend
+    runtime: docker
+    dockerfilePath: ./frontend/Dockerfile
+    plan: free
+    envVars:
+      - key: VITE_API_BASE_URL
+        sync: false   # Preencha com a URL da API após o deploy (ex: https://sinalyx-api.onrender.com)
+      - key: VITE_APP_ENV
+        value: production

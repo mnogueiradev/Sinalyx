@@ -1,0 +1,27 @@
+{
+    "sqltools.connections": [
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "Sinalyx PostgreSQL",
+            "group": "localhost",
+            "database": "sinalyx",
+            "username": "sinalyx"
+        },
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "LogSense PostgreSQL",
+            "group": "localhost",
+            "database": "sinalyx",
+            "username": "sinalyx",
+            "password": "sinalyx"
+        }
+    ]
+}

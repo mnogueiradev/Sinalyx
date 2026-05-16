@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+pandas
+numpy
+scikit-learn
+tensorflow
+joblib
+SQLAlchemy
+psycopg2-binary
+python-dotenv
+python-multipart
+pydantic
+paramiko
+alembic
+pytest

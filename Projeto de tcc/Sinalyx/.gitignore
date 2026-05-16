@@ -1,0 +1,52 @@
+# Ambiente
+.venv/
+venv/
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Artefatos e dados gerados
+data/models/**
+!data/models/
+!data/models/.gitkeep
+
+data/processed/**
+!data/processed/
+!data/processed/.gitkeep
+
+data/raw/**
+!data/raw/
+!data/raw/.gitkeep
+
+data/runtime/**
+!data/runtime/
+!data/runtime/.gitkeep
+
+# Permitir versionar apenas exemplos manuais se necessário
+!data/raw/*.sample.csv
+
+# Outros
+*.joblib
+*.keras
+*.h5
+*.tmp
+*.temp
+*.log.tmp
+*.bak
+*.zip
+*.db
+*.sqlite
+*.sqlite3
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env

@@ -1,0 +1,35 @@
+# Ambientes e dependencias locais
+.venv
+venv
+frontend/node_modules
+
+# Controle de versao e configuracoes privadas
+.git
+.gitignore
+.env
+frontend/.env
+
+# Caches e artefatos gerados
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+.mypy_cache
+.ruff_cache
+frontend/dist
+
+# Dados brutos, logs e runtime ficam fora da imagem.
+# Os modelos treinados (data/models/) sao copiados pelo Dockerfile.
+data/raw
+data/processed
+data/runtime
+
+# Artefatos temporarios/locais
+*.tmp
+*.temp
+*.log.tmp
+*.bak
+*.zip
+*.db
+*.sqlite
+*.sqlite3

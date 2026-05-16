@@ -1,0 +1,68 @@
+name: sinalyx
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:8000}
+        VITE_APP_ENV: ${VITE_APP_ENV:-local}
+    container_name: sinalyx_frontend
+    depends_on:
+      - api
+    ports:
+      - "${SINALYX_FRONTEND_BIND:-127.0.0.1}:${SINALYX_FRONTEND_HOST_PORT:-5173}:80"
+    restart: on-failure
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sinalyx_api
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      SINALYX_ENV: ${SINALYX_ENV:-local}
+      SINALYX_CORS_ORIGINS: ${SINALYX_CORS_ORIGINS:-http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://127.0.0.1:3000}
+      DATABASE_ENABLED: ${DATABASE_ENABLED:-true}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://sinalyx:sinalyx@postgres:5432/sinalyx}
+      POSTGRES_DB: ${POSTGRES_DB:-sinalyx}
+      POSTGRES_USER: ${POSTGRES_USER:-sinalyx}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sinalyx}
+      SINALYX_AUTH_SECRET_KEY: ${SINALYX_AUTH_SECRET_KEY:-sinalyx-local-dev-secret-change-me}
+      SINALYX_ACCESS_TOKEN_EXPIRE_MINUTES: ${SINALYX_ACCESS_TOKEN_EXPIRE_MINUTES:-720}
+      SINALYX_ADMIN_NAME: ${SINALYX_ADMIN_NAME:-Administrador Sinalyx}
+      SINALYX_ADMIN_EMAIL: ${SINALYX_ADMIN_EMAIL:-admin@sinalyx.local}
+      SINALYX_ADMIN_PASSWORD: ${SINALYX_ADMIN_PASSWORD:-}
+      SINALYX_SUPER_ADMIN_EMAIL: ${SINALYX_SUPER_ADMIN_EMAIL:-admin@sinalyx.local}
+    ports:
+      - "${SINALYX_API_BIND:-127.0.0.1}:${SINALYX_API_HOST_PORT:-8000}:8000"
+    volumes:
+      - ./data:/app/data
+    restart: on-failure
+
+  postgres:
+    image: postgres:16
+    container_name: sinalyx_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-sinalyx}
+      POSTGRES_USER: ${POSTGRES_USER:-sinalyx}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sinalyx}
+    ports:
+      - "${SINALYX_POSTGRES_BIND:-127.0.0.1}:${SINALYX_POSTGRES_HOST_PORT:-5432}:5432"
+    volumes:
+      - sinalyx_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-sinalyx} -d $${POSTGRES_DB:-sinalyx}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+
+volumes:
+  sinalyx_pgdata:
