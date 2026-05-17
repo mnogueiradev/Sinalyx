@@ -168,13 +168,16 @@ class _UsersScreenState extends State<UsersScreen> {
                 Icon(Icons.people_rounded,
                     color: colorScheme.primary, size: 22),
                 const SizedBox(width: 8),
-                Text(
-                  'Gerenciamento de Usuários',
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                Expanded(
+                  child: Text(
+                    'Gerenciamento de Usuários',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-                const Spacer(),
+                const SizedBox(width: 8),
                 Chip(
                   label: Text('${_users.length} usuários'),
                   avatar: const Icon(Icons.group, size: 16),
@@ -183,20 +186,7 @@ class _UsersScreenState extends State<UsersScreen> {
               ],
             ),
           ),
-          // CRUD badge informativo
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Wrap(
-              spacing: 6,
-              children: [
-                _CrudBadge(label: 'Create', color: Colors.green),
-                _CrudBadge(label: 'Read', color: Colors.blue),
-                _CrudBadge(label: 'Update', color: Colors.orange),
-                _CrudBadge(label: 'Delete', color: Colors.red),
-              ],
-            ),
-          ),
-          const SizedBox(height: 8),
+
           const Divider(height: 1),
           // Lista de usuários
           Expanded(
@@ -262,24 +252,6 @@ class _UsersScreenState extends State<UsersScreen> {
 }
 
 // ─── Widgets auxiliares ───────────────────────────────────────────────────────
-
-class _CrudBadge extends StatelessWidget {
-  final String label;
-  final Color color;
-
-  const _CrudBadge({required this.label, required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Chip(
-      label: Text(label,
-          style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 11)),
-      backgroundColor: color.withOpacity(0.1),
-      side: BorderSide(color: color.withOpacity(0.4)),
-      padding: const EdgeInsets.symmetric(horizontal: 4),
-    );
-  }
-}
 
 class _UserCard extends StatelessWidget {
   final UserModel user;
