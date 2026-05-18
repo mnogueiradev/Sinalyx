@@ -7,9 +7,8 @@ import '../models/user_model.dart';
 class ApiService {
   // Se rodar na Web (Render), usa a API da nuvem. Se rodar no celular (APK), usa o IP local.
   // IMPORTANTE: Altere o link do Render abaixo após fazer o deploy!
-  static const String _baseUrl = kIsWeb 
-      ? 'https://sinalyx-api-seulink.onrender.com' 
-      : 'http://192.168.1.6:8000';
+  static const String _baseUrl =
+      kIsWeb ? 'https://sinalyx-api.onrender.com' : 'http://192.168.1.6:8000';
 
   static Future<String?> getToken() async {
     final prefs = await SharedPreferences.getInstance();
