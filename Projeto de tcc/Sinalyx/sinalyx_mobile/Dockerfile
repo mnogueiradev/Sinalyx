@@ -5,6 +5,8 @@ WORKDIR /app
 COPY . .
 # Baixa as dependências e compila para a Web
 RUN flutter pub get
+# Configura o projeto para suportar a Web (cria a pasta web/index.html)
+RUN flutter create . --platforms web
 RUN flutter build web --release
 
 # 2️⃣ Estágio de Servidor (Nginx)
