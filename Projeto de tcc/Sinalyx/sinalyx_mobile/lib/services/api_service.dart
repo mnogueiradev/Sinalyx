@@ -1,13 +1,15 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user_model.dart';
 
 class ApiService {
-  // localhost: Windows desktop, Web, iOS Simulator
-  // 10.0.2.2: emulador Android
-  // IP do PC (ex: 192.168.x.x): dispositivo físico Android/iOS
-  static const String _baseUrl = 'http://192.168.1.6:8000';
+  // Se rodar na Web (Render), usa a API da nuvem. Se rodar no celular (APK), usa o IP local.
+  // IMPORTANTE: Altere o link do Render abaixo após fazer o deploy!
+  static const String _baseUrl = kIsWeb 
+      ? 'https://sinalyx-api-seulink.onrender.com' 
+      : 'http://192.168.1.6:8000';
 
   static Future<String?> getToken() async {
     final prefs = await SharedPreferences.getInstance();
