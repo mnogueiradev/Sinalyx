@@ -3,7 +3,7 @@ uvicorn[standard]
 pandas
 numpy
 scikit-learn
-tensorflow
+tensorflow-cpu
 joblib
 SQLAlchemy
 psycopg2-binary
