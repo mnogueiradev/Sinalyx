@@ -9,6 +9,7 @@ services:
   - type: web
     name: sinalyx-api
     runtime: docker
+    rootDir: "Projeto de tcc/Sinalyx"
     dockerfilePath: ./Dockerfile
     plan: free
     healthCheckPath: /health
@@ -48,6 +49,7 @@ services:
   - type: web
     name: sinalyx-mobile
     runtime: docker
+    rootDir: "Projeto de tcc/Sinalyx"
     dockerfilePath: ./sinalyx_mobile/Dockerfile
     plan: free
     # Após o deploy da API (sinalyx-api), lembre-se de colocar a URL gerada pelo 
