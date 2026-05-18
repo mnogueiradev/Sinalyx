@@ -44,14 +44,11 @@ services:
       - key: SINALYX_CORS_ORIGINS
         sync: false   # Preencha com a URL do frontend após o deploy
 
-  # ── Frontend (Vue 3 / Vite - Site Estático) ────────────────────────────────
+  # ── Frontend Mobile (Flutter Web) ──────────────────────────────────────────
   - type: web
-    name: sinalyx-frontend
+    name: sinalyx-mobile
     runtime: docker
-    dockerfilePath: ./frontend/Dockerfile
+    dockerfilePath: ./sinalyx_mobile/Dockerfile
     plan: free
-    envVars:
-      - key: VITE_API_BASE_URL
-        sync: false   # Preencha com a URL da API após o deploy (ex: https://sinalyx-api.onrender.com)
-      - key: VITE_APP_ENV
-        value: production
+    # Após o deploy da API (sinalyx-api), lembre-se de colocar a URL gerada pelo 
+    # Render no arquivo api_service.dart e fazer um novo git push!
