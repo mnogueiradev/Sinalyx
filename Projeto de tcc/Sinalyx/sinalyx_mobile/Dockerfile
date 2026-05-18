@@ -1,19 +1,9 @@
-# 1️⃣ Estágio de Build do Flutter
-FROM ghcr.io/cirruslabs/flutter:stable AS build
-WORKDIR /app
-# Copia todo o código do app mobile para dentro do container
-COPY . .
-# Baixa as dependências e compila para a Web
-RUN flutter pub get
-# Configura o projeto para suportar a Web (cria a pasta web/index.html)
-RUN flutter create . --platforms web
-RUN flutter build web --release
-
-# 2️⃣ Estágio de Servidor (Nginx)
+# Servidor Nginx Simples
 FROM nginx:alpine
-# Copia os arquivos HTML/JS gerados pelo Flutter para a pasta do Nginx
-COPY --from=build /app/build/web /usr/share/nginx/html
-# Configuração para garantir que o Flutter Web funcione perfeitamente sem erros 404
+# Copia os arquivos JÁ COMPILADOS do seu computador para o servidor
+COPY build/web /usr/share/nginx/html
+
+# Configuração para garantir que o Flutter Web funcione sem erros 404
 RUN echo 'server { \
     listen 80; \
     location / { \
